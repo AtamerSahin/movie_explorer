@@ -15,7 +15,7 @@
 ## Bonus
 - Pagination
 
-![sample image](https://i.hizliresim.com/2ev3uyc.png) ![sample image](https://i.hizliresim.com/jbckz2i.png) 
+![sample image](https://i.hizliresim.com/mmxfav7.png) ![sample image](https://i.hizliresim.com/jbckz2i.png) 
 ![sample image](https://i.hizliresim.com/i83p880.png)
 
 
