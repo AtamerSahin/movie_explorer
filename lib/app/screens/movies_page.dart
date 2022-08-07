@@ -46,7 +46,6 @@ class _MoviesPageState extends State<MoviesPage> {
                   borderRadius: BorderRadius.circular(32),
                 ),
                 child: TextFormField(
-                  key: const Key('field_key'),
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       suffixIcon: Icon(
@@ -59,7 +58,6 @@ class _MoviesPageState extends State<MoviesPage> {
                   onChanged: (s) {
                     _movieBloc.add(FetchMovieEvent(query: s));
                   },
-                  validator: movieValidator,
                 ),
               ),
               BlocBuilder<MovieBloc, MovieState>(
@@ -174,13 +172,5 @@ class _MoviesPageState extends State<MoviesPage> {
         child: CircularProgressIndicator(),
       ),
     );
-  }
-
-  String? movieValidator(String? value) {
-    if (value!.length < 3) {
-      return "Email is Required";
-    } else {
-      return null;
-    }
   }
 }
