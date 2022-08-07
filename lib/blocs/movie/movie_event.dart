@@ -8,9 +8,11 @@ abstract class MovieEvent extends Equatable {
 }
 
 class FetchMovieEvent extends MovieEvent {
-  FetchMovieEvent();
+  String query;
+  FetchMovieEvent({required this.query});
 }
 
 class PaginationEvent extends MovieEvent {
-  PaginationEvent();
+  String query;
+  PaginationEvent({required this.query});
 }

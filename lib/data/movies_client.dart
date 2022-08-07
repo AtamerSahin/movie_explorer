@@ -27,19 +27,18 @@ class MoviesClient implements MovieBase {
     }
   }
 
-  //Get Movie Detail
+  //Get Movie Details
   @override
   Future<MovieDetail> getMovieDetail(String id) async {
-    // try {
-    //   var result =
-    //       await _dioClient.dio.get("/movie/" + id + "?api_key=" + apiKey);
+    try {
+      var result =
+          await _dioClient.dio.get("/movie/" + id + "?api_key=" + apiKey);
 
-    //   print(result.data.toString());
-    //   var data = MovieDetail.fromMap(result.data);
-    //   return data;
-    // } catch (e) {
-    //   throw e;
-    // }
-    return MovieDetail();
+      print(result.data.toString());
+      var data = MovieDetail.fromMap(result.data);
+      return data;
+    } catch (e) {
+      throw e;
+    }
   }
 }

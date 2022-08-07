@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/app/custom_widgets/movie_card.dart';
-import 'package:movie_explorer/blocs/movie/bloc/movie_bloc.dart';
+import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override

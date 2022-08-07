@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_explorer/blocs/movie/bloc/movie_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_explorer/app/screens/movie_detail.dart';
+import 'package:movie_explorer/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_explorer/app/custom_widgets/movie_card.dart';
-import 'package:movie_explorer/blocs/movie/bloc/movie_bloc.dart';
+import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
 
 class MoviesPage extends StatefulWidget {
   @override
@@ -13,8 +11,9 @@ class MoviesPage extends StatefulWidget {
 }
 
 class _MoviesPageState extends State<MoviesPage> {
-  var _textController = TextEditingController();
+  TextEditingController _textController = TextEditingController();
   ScrollController _scrollController = new ScrollController();
+
   bool _isLoading = false;
 
   @override
@@ -26,65 +25,45 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   Widget build(BuildContext context) {
     final _movieBloc = BlocProvider.of<MovieBloc>(context);
+    final _movieDetailBloc = BlocProvider.of<MovieDetailBloc>(context);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: Text("Movies"),
+          title: Text("Movie Explorer"),
         ),
-        body: BlocBuilder<MovieBloc, MovieState>(
-          bloc: _movieBloc,
-          builder: (context, state) {
-            if (state is MovieInitial) {
-              return Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        suffixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                        ),
-                        hintText: "Search Movie",
-                        border: InputBorder.none),
-                    controller: state.textEditingController,
-                    onChanged: (s) async {
-                      if (s.length >= 4) _movieBloc.add(FetchMovieEvent());
-                    },
-                  ),
-                ),
-              );
-            }
-            if (state is MovieLoadingState) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (state is MovieLoadedState) {
-              return Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(32),
+        body: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(32),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(20),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey,
                     ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          suffixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          ),
-                          hintText: "Search Movie",
-                          border: InputBorder.none),
-                      controller: state.textEditingController,
-                      onChanged: (s) async {
-                        if (s.length >= 4) _movieBloc.add(FetchMovieEvent());
-                      },
-                    ),
-                  ),
-                  Expanded(
+                    hintText: "Search Movie",
+                    border: InputBorder.none),
+                controller: _textController,
+                onChanged: (s) {
+                  _movieBloc.add(FetchMovieEvent(query: s));
+                },
+              ),
+            ),
+            BlocBuilder<MovieBloc, MovieState>(
+              bloc: _movieBloc,
+              builder: (context, state) {
+                if (state is MovieInitial) {
+                  return Center(child: Text("Initial"));
+                }
+                if (state is MovieLoadingState) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is MovieLoadedState) {
+                  return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: GridView.builder(
@@ -103,7 +82,17 @@ class _MoviesPageState extends State<MoviesPage> {
                               return _newMoviesLoadingIndicator();
                             } else {
                               return InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  _movieDetailBloc.add(FetchMovieDetailEvent(
+                                      id: state.moviesList[index].id
+                                          .toString()));
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailPage()));
+                                },
                                 child: MovieCard(
                                     height: 0.09,
                                     name: state.moviesList[index].originalTitle,
@@ -114,34 +103,10 @@ class _MoviesPageState extends State<MoviesPage> {
                             }
                           }),
                     ),
-                  ),
-                ],
-              );
-            }
-            if (state is MoviePaginationState) {
-              return Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
-                          suffixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          ),
-                          hintText: "Search Movie",
-                          border: InputBorder.none),
-                      controller: state.textEditingController,
-                      onChanged: (s) async {
-                        if (s.length >= 4) _movieBloc.add(FetchMovieEvent());
-                      },
-                    ),
-                  ),
-                  Expanded(
+                  );
+                }
+                if (state is MoviePaginationState) {
+                  return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: GridView.builder(
@@ -160,7 +125,16 @@ class _MoviesPageState extends State<MoviesPage> {
                               return _newMoviesLoadingIndicator();
                             } else {
                               return InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  _movieDetailBloc.add(FetchMovieDetailEvent(
+                                      id: state.moviesList[index].id
+                                          .toString()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MovieDetailPage()));
+                                },
                                 child: MovieCard(
                                     height: 0.09,
                                     name: state.moviesList[index].originalTitle,
@@ -171,12 +145,12 @@ class _MoviesPageState extends State<MoviesPage> {
                             }
                           }),
                     ),
-                  ),
-                ],
-              );
-            }
-            return Container();
-          },
+                  );
+                }
+                return Container();
+              },
+            ),
+          ],
         ));
   }
 
@@ -185,7 +159,7 @@ class _MoviesPageState extends State<MoviesPage> {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      _movieBloc.add(PaginationEvent());
+      _movieBloc.add(PaginationEvent(query: _textController.text));
     }
   }
 
