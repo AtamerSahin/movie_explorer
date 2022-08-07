@@ -4,6 +4,9 @@ import 'package:movie_explorer/app/screens/movie_detail.dart';
 import 'package:movie_explorer/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_explorer/app/custom_widgets/movie_card.dart';
 import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
+import 'package:auto_route/auto_route.dart';
+
+import '../../routes.gr.dart';
 
 class MoviesPage extends StatefulWidget {
   @override
@@ -24,6 +27,8 @@ class _MoviesPageState extends State<MoviesPage> {
 
   @override
   Widget build(BuildContext context) {
+    //Autoroute
+
     final _movieBloc = BlocProvider.of<MovieBloc>(context);
     final _movieDetailBloc = BlocProvider.of<MovieDetailBloc>(context);
     return Scaffold(
@@ -87,11 +92,13 @@ class _MoviesPageState extends State<MoviesPage> {
                                       id: state.moviesList[index].id
                                           .toString()));
 
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MovieDetailPage()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             MovieDetailPage()));
+                                  context.router
+                                      .pushNamed('/movie-detail-page');
                                 },
                                 child: MovieCard(
                                     height: 0.09,
@@ -129,11 +136,8 @@ class _MoviesPageState extends State<MoviesPage> {
                                   _movieDetailBloc.add(FetchMovieDetailEvent(
                                       id: state.moviesList[index].id
                                           .toString()));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MovieDetailPage()));
+                                  context.router
+                                      .pushNamed('/movie-detail-page');
                                 },
                                 child: MovieCard(
                                     height: 0.09,

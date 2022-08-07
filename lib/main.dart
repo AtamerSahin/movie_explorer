@@ -5,12 +5,16 @@ import 'package:movie_explorer/app/screens/movies_page.dart';
 import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
 import 'package:movie_explorer/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_explorer/locator.dart';
+import 'package:movie_explorer/routes.gr.dart';
 
 void main() {
   setupLocator();
 
   runApp(MyApp());
 }
+
+//Autoroute
+final _appRouter = AppRouter();
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,9 +28,10 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => MovieDetailBloc(),
         ),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
         title: 'Material App',
-        home: MoviesPage(),
       ),
     );
   }
