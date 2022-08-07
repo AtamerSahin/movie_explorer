@@ -14,32 +14,38 @@ class MovieCard extends StatelessWidget {
     return Column(
       children: [
         img != null
-            ? Container(
-                height: deviceHeight * height!,
-                alignment: Alignment.bottomLeft,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    "https://image.tmdb.org/t/p/w500/" + img!,
-                  ),
-                )),
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(10),
                 child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.transparent, width: 1),
+                  height: deviceHeight * height!,
+                  alignment: Alignment.bottomLeft,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                      "https://image.tmdb.org/t/p/w500/" + img!,
                     ),
-                    child: Text(
-                      point!,
-                      style: TextStyle(fontSize: 18),
-                    )),
+                  )),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.transparent, width: 1),
+                      ),
+                      child: Text(
+                        point!,
+                        style: TextStyle(fontSize: 18),
+                      )),
+                ),
               )
-            : Container(
-                height: deviceHeight * height!,
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  point!,
-                  style: TextStyle(fontSize: 18),
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  height: deviceHeight * height!,
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    point!,
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
         name != null

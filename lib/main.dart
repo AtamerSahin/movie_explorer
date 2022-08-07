@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_explorer/app/screens/homepage.dart';
-import 'package:movie_explorer/app/screens/movies_page.dart';
 import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
 import 'package:movie_explorer/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movie_explorer/locator.dart';
@@ -29,6 +27,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
         title: 'Material App',
