@@ -1,16 +1,25 @@
-# movie_explorer
+# Movie Explorer
+>  Movie Explorer app made with Flutter for Etiya. Used MVVM (Model-View-ViewModel) for clean architecture and used Bloc for State Management.
 
-A new Flutter project.
+## General Information
+- https://www.themoviedb.org
+- Model-View-ViewModel
+- Bloc
 
-## Getting Started
+## Packages Used
+- flutter_bloc: State Management
+- auto_route: Routing
+- dio: HTTP Requests
+- get_it: Locator
 
-This project is a starting point for a Flutter application.
+## Bonus
+- Pagination
 
-A few resources to get you started if this is your first Flutter project:
+![sample image](https://i.hizliresim.com/2ev3uyc.png) ![sample image](https://i.hizliresim.com/jbckz2i.png) 
+![sample image](https://i.hizliresim.com/i83p880.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
