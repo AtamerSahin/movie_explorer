@@ -1,32 +1,33 @@
 // Import the test package and Counter class
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_explorer/app/custom_widgets/movie_card.dart';
 import 'package:movie_explorer/app/screens/movies_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_explorer/blocs/movie/movie_bloc.dart';
 
 void main() {
-  MoviesPage _moviesPage;
-
-  testWidgets('validate email inline error message',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(BlocProvider(
-      create: (context) => MovieBloc(),
-      child: MoviesPage(),
+  testWidgets('MyWidget has a title and message', (tester) async {
+    // Create the widget by telling the tester to build it.
+    await tester.pumpWidget(MediaQuery(
+      data: MediaQueryData(),
+      child: MaterialApp(
+        home: Scaffold(
+          body: MovieCard(
+            img: null,
+            name: "a",
+            point: "6",
+          ),
+        ),
+      ),
     ));
 
-    // final emailErrorFinder = find.text('Email is Required');
-    // final textFormField = find.byKey(const Key('field_key'));
-    // final textFinder = find.text('Email is required');
-    // final validationMessageFinder =
-    //     find.descendant(of: textFormField, matching: textFinder);
-    // expect(validationMessageFinder, findsOneWidget);
-    final passwordTextFormField = find.descendant(
-      of: find.byKey(const Key('field_key')),
-      matching: find.byType(EditableText),
-    );
-    final input = tester.widget<EditableText>(passwordTextFormField);
-    expect(input.obscureText, isTrue);
+    final nameFinder = find.text("a");
+    final pointFinder = find.text('6');
+
+    expect(nameFinder, findsOneWidget);
+    expect(pointFinder, findsOneWidget);
   });
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_explorer/blocs/movie_detail/movie_detail_bloc.dart';
@@ -96,7 +98,6 @@ class _MoviesPageState extends State<MoviesPage> {
                                         .pushNamed('/movie-detail-page');
                                   },
                                   child: MovieCard(
-                                      height: 0.17,
                                       name:
                                           state.moviesList[index].originalTitle,
                                       point: state.moviesList[index].voteAverage
@@ -136,7 +137,6 @@ class _MoviesPageState extends State<MoviesPage> {
                                         .pushNamed('/movie-detail-page');
                                   },
                                   child: MovieCard(
-                                      height: 0.09,
                                       name:
                                           state.moviesList[index].originalTitle,
                                       point: state.moviesList[index].voteAverage

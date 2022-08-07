@@ -4,20 +4,19 @@ class MovieCard extends StatelessWidget {
   String? img;
   String? name;
   String? point;
-  double? height;
-  MovieCard({this.name, this.img, this.point, this.height});
+  MovieCard({this.name, this.img, this.point});
 
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final deviceWidth = MediaQuery.of(context).size.width;
+
     return Column(
       children: [
         img != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  height: deviceHeight * height!,
+                  height: deviceHeight * 0.17,
                   alignment: Alignment.bottomLeft,
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -40,7 +39,7 @@ class MovieCard extends StatelessWidget {
             : ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  height: deviceHeight * height!,
+                  height: deviceHeight * 0.17,
                   alignment: Alignment.bottomLeft,
                   child: Text(
                     point!,
