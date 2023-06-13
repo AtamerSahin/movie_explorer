@@ -10,7 +10,7 @@
 - flutter_bloc: State Management
 - auto_route: Routing
 - dio: HTTP Requests
-- get_it: Locator
+- get_it: Dependency Injection
 
 ## Bonus
 - Pagination
