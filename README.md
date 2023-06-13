@@ -1,5 +1,5 @@
 # Movie Explorer
->  Movie Explorer app made with Flutter for Etiya. Used MVVM (Model-View-ViewModel) for clean architecture and used Bloc for State Management.
+>  Movie Explorer app made with Flutter for Etiya. Used MVVM (Model-View-ViewModel) with Clean Architecture and used BLoC for State Management.
 
 ## General Information
 - https://www.themoviedb.org
